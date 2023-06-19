@@ -2,14 +2,8 @@
 version: '3.1'
 
 services:
-  api:
-    build: .
-    ports:
-      - "8000:8000"
-    working_dir: /app
-    tty: true
-
   db:
+    container_name: db
     image: mariadb
     restart: always
     environment:
@@ -17,6 +11,8 @@ services:
       MARIADB_PASSWORD: password
       MARIADB_ROOT_PASSWORD: password
       MARIADB_DATABASE: app
+    ports:
+      - 3306:3306
 
   adminer:
     image: adminer

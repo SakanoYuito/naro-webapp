@@ -3,24 +3,22 @@ package main
 import (
 	// "net/http"
 
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/echo/v4"
 
+	"naro-webapp/controller"
+	"naro-webapp/model"
 )
 
-// func connect(c echo.Context) error {
-// 	db, _ := model.DB.DB()
-// 	defer db.Close()
-// 	err := db.Ping()
-// 	if err != nil {
-// 		return c.String(http.StatusInternalServerError, "Connection Failed")
-// 	} else {
-// 		return c.String(http.StatusOK, "connection established")
-// 	}
-// }
 
 func main() {
 	e := echo.New()
-	// e.GET("/", connect)
+	e.Use(middleware.Logger())
+
+	db, _ := model.DB.DB()
+	defer db.Close()
+
+	e.POST("/users", controller.CreateUser)
 
 	e.Logger.Fatal(e.Start(":8000"))
 }
