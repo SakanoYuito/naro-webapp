@@ -1,9 +1,13 @@
 FROM golang:latest
 
-WORKDIR /app
-COPY ./app /app
+WORKDIR /
+COPY ./ /
 
-RUN go mod tidy \
+RUN go mod init github.com/SakanoYuito/naro-webapp \
+  && go get github.com/labstack/echo/v4 \
+  && go get gorm.io/gorm \
+  && go get gorm.io/driver/mysql \
+  && go mod tidy \
   && go build
 
 ENV CGO_ENABLED=0 \
