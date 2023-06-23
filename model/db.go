@@ -13,10 +13,10 @@ var err error
 
 func init() {
 	dsn := "user:password@tcp(127.0.0.1:3306)/app?charset=utf8mb4&parseTime=True&loc=Local"
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatalln("failed to connect database")
 	}
-	DB.AutoMigrate(&User{})
+	DB.AutoMigrate(&User{}, &Post{})
 }
